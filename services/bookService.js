@@ -5,3 +5,8 @@ export const fetchAllBooks = async() => {
     return books;
 }
 
+export const createBook = async(book) => {
+    const bookId = await bookModel.insert(book);
+    return bookId;
+}
+
