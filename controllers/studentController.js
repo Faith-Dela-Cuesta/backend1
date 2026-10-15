@@ -5,7 +5,7 @@ export const fetchAllStudents = async(req, res) => {
     res.status(200).json(students);
 };
 
-export const createStudent = async (req, res) => {
+export const createStudent = async(req, res) => {
     const {name, srcode, program} = req.body;
     const student = {name, srcode, program};
 
@@ -15,6 +15,26 @@ export const createStudent = async (req, res) => {
             success: true,
             message: studentId
         });
+    } catch(e) {
+        console.log(e);
+        res.status(500).json({
+            error: "Internal Server Error"
+        });
+    }
+};  
+
+export const editStudent = async (req, res) => {
+    const {name, srcode, program} = req.body;
+    const {id} = req.params;
+    const student = {id: parseInt(id), name, srcode, program};
+
+    try{
+        const updatedStudent = await studentService.updateStudent(student);
+        res.status(200).json({
+            success: true,
+            message: updatedStudent
+        });
+
     }catch(e){
         console.log(e);
         res.status(500).json({

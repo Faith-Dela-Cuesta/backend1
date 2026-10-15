@@ -1,6 +1,6 @@
 import pool from '../config/db.js';
 
-
+//read
 export const fetchAllStudents = async () =>{
     const [rows] = await pool.query("SELECT * FROM student");
     return rows;
@@ -14,4 +14,13 @@ export const insert = async (student) => {
     );
 
     return result.insertId;
+}
+
+//update
+export const update = async (student) => {
+    const [result] = await pool.query (
+        "UPDATE student SET name = ?, srcode = ?, program = ? WHERE id = ?",
+        [student.name, student.srcode, student.program, student.id]
+    );
+    return result.affectedRows;
 }
